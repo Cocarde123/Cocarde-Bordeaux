@@ -226,6 +226,47 @@
       opacity: 0.9;
     }
 
+    .hero-cocarde {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 60px;
+      height: 60px;
+      background-image: url('https://agi-prod-file-upload-public-main-use1.s3.amazonaws.com/12376818-1ded-4566-b4e3-9fd981adce50');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-history {
+      margin-top: 16px;
+      padding: 12px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      border-left: 3px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .hero-history-title {
+      font-size: 12px;
+      font-weight: 650;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.95;
+    }
+
+    .hero-history-text {
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
     /* MAIN SECTIONS */
     .main {
       margin-top: 18px;
@@ -373,7 +414,7 @@
       font-weight: 500;
     }
 
-    /* SECONDARY CTA (inside “Comment Voter ?”) */
+    /* SECONDARY CTA (inside "Comment Voter ?") */
     .inline-cta {
       margin-top: 10px;
       display: flex;
@@ -439,6 +480,7 @@
     <main class="shell">
       <!-- HERO -->
       <header class="hero" role="banner">
+        <div class="hero-cocarde" aria-label="Symbole de La Cocarde Étudiante"></div>
         <div class="hero-inner">
           <div class="hero-tag">
             <span class="hero-tag-pill" aria-hidden="true">
@@ -448,102 +490,107 @@
           </div>
 
           <h1 class="hero-title">Élections CROUS : L'Alternative Patriote</h1>
-          <p class="hero-subtitle">Du 3 au 5 février 2026 &mdash; Votez La Cocarde</p>
+          <p class="hero-subtitle">Du 3 au 5 février 2026 — Votez La Cocarde</p>
 
           <div class="hero-dates">
             <span>Vote 100% en ligne</span>
-            <small>3 &mdash; 5 février 2026</small>
+            <small>3 — 5 février 2026</small>
           </div>
 
           <div class="hero-cta-main">
             <a
-              href="https://crous-bordeaux.legavote.fr"
+              href="#pourquoi"
               class="btn-primary"
-              target="_blank"
-              rel="noopener noreferrer"
+              target="_self"
             >
-              <span>JE VOTE MAINTENANT</span>
+              <span>DÉCOUVRE NOTRE PROGRAMME</span>
             </a>
             <p class="hero-cta-note">
-              En quelques clics avec ton code reçu par mail.
+              Scroll pour voir ce qui change vraiment pour toi.
             </p>
           </div>
 
           <p class="hero-footnote">
-            Défends une alternative patriote au CROUS Bordeaux-Aquitaine en
-            choisissant la liste <strong>La Cocarde Étudiante</strong>.
+            Une <strong>alternative patriote</strong> qui défend tes intérêts et ceux de ton université.
           </p>
+
+          <div class="hero-history">
+            <p class="hero-history-title">Qui sommes-nous ?</p>
+            <p class="hero-history-text">
+              La Cocarde Étudiante est un collectif d'étudiants engagés pour <strong>défendre les valeurs patriotes</strong> et les intérêts concrets de tous les étudiants du CROUS Bordeaux-Aquitaine. Nous refusons les arrangements avec les élites et mettons tes vrais problèmes au centre.
+            </p>
+          </div>
         </div>
       </header>
 
       <section class="main">
-        <!-- POURQUOI VOTER POUR NOUS -->
-        <section class="block" aria-labelledby="why-title">
+        <!-- NOS IDÉES CLÉS -->
+        <section class="block" id="pourquoi" aria-labelledby="why-title">
           <div class="block-header">
-            <h2 id="why-title" class="block-title">Pourquoi voter pour nous&nbsp;?</h2>
-            <span class="block-kicker">Ton quotidien, nos priorités</span>
+            <h2 id="why-title" class="block-title">Nos 4 idées clés</h2>
+            <span class="block-kicker">Ce qui change vraiment pour toi</span>
           </div>
           <div class="divider"></div>
 
-          <div class="grid-4">
-            <!-- Carte 1 -->
-            <article class="card">
-              <div class="card-header">
-                <div class="card-dot" aria-hidden="true"></div>
-                <h3 class="card-title">Pouvoir d'achat</h3>
-              </div>
-              <p class="card-tag">Restauration</p>
-              <p class="card-text">
-                Repas à <strong>2€ pour les non-boursiers</strong> (1€ pour les
-                boursiers) et promotion du <strong>localisme</strong> dans les assiettes.
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Idée 1 : Restauration -->
+            <div style="padding: 12px 12px; background: #f9fafb; border-radius: 14px; border-left: 4px solid #ed2939;">
+              <p style="font-size: 13px; font-weight: 700; color: #111827; margin: 0 0 6px 0;">
+                🍽️ Repas à prix juste pour tous
               </p>
-            </article>
+              <p style="font-size: 12px; color: #4b5563; margin: 0;">
+                <strong>Idée</strong> : Repas à 2€ pour les non-boursiers (1€ pour les boursiers) dans la restauration universitaire.
+              </p>
+              <p style="font-size: 11px; color: #6b7280; margin: 6px 0 0 0;">
+                <em>Pourquoi ?</em> Trop d'étudiants sautent des repas à cause du coût. C'est une urgence de justice sociale. On soutient aussi le localisme : manger français et local, c'est bon pour ta santé et l'économie locale.
+              </p>
+            </div>
 
-            <!-- Carte 2 -->
-            <article class="card">
-              <div class="card-header">
-                <div class="card-dot" aria-hidden="true"></div>
-                <h3 class="card-title">Justice sociale</h3>
-              </div>
-              <p class="card-tag">Bourses</p>
-              <p class="card-text">
-                <strong>Priorité nationale</strong> dans l'attribution des bourses et
-                indexation automatique sur l'<strong>inflation</strong>.
+            <!-- Idée 2 : Bourses -->
+            <div style="padding: 12px 12px; background: #f9fafb; border-radius: 14px; border-left: 4px solid #ed2939;">
+              <p style="font-size: 13px; font-weight: 700; color: #111827; margin: 0 0 6px 0;">
+                💼 Bourses justes et indexées
               </p>
-            </article>
+              <p style="font-size: 12px; color: #4b5563; margin: 0;">
+                <strong>Idée</strong> : Priorité nationale dans l'attribution des bourses et indexation automatique sur l'inflation.
+              </p>
+              <p style="font-size: 11px; color: #6b7280; margin: 6px 0 0 0;">
+                <em>Pourquoi ?</em> Les bourses stagneront tant qu'on ne les indexe pas. Les étudiants français d'abord, c'est de la justice. Pas de fonds pour des projets farfelus : priorité aux vrais besoins.
+              </p>
+            </div>
 
-            <!-- Carte 3 -->
-            <article class="card">
-              <div class="card-header">
-                <div class="card-dot" aria-hidden="true"></div>
-                <h3 class="card-title">Sécurité &amp; logement</h3>
-              </div>
-              <p class="card-tag">Logement</p>
-              <p class="card-text">
-                <strong>Priorité nationale</strong> pour l'accès aux logements, rénovation
-                des résidences et sécurisation des <strong>zones dangereuses</strong>.
+            <!-- Idée 3 : Logement -->
+            <div style="padding: 12px 12px; background: #f9fafb; border-radius: 14px; border-left: 4px solid #ed2939;">
+              <p style="font-size: 13px; font-weight: 700; color: #111827; margin: 0 0 6px 0;">
+                🏠 Logement sécurisé et décent
               </p>
-            </article>
+              <p style="font-size: 12px; color: #4b5563; margin: 0;">
+                <strong>Idée</strong> : Priorité nationale pour l'accès aux logements, rénovation des résidences et sécurisation des zones dangereuses.
+              </p>
+              <p style="font-size: 11px; color: #6b7280; margin: 6px 0 0 0;">
+                <em>Pourquoi ?</em> Vivre dans la peur ou dans l'humidité, c'est inacceptable. On veut des logements décents, sûrs et accessibles pour tous les étudiants. La sécurité est un droit, pas un luxe.
+              </p>
+            </div>
 
-            <!-- Carte 4 -->
-            <article class="card">
-              <div class="card-header">
-                <div class="card-dot" aria-hidden="true"></div>
-                <h3 class="card-title">Stop au gaspillage</h3>
-              </div>
-              <p class="card-tag">CVEC</p>
-              <p class="card-text">
-                <strong>Plafonnement</strong> de la CVEC à 40€ et fin du financement des
-                <strong>délires militants</strong> éloignés des préoccupations étudiantes.
+            <!-- Idée 4 : CVEC -->
+            <div style="padding: 12px 12px; background: #f9fafb; border-radius: 14px; border-left: 4px solid #ed2939;">
+              <p style="font-size: 13px; font-weight: 700; color: #111827; margin: 0 0 6px 0;">
+                ✋ Stop au gaspillage de la CVEC
               </p>
-            </article>
+              <p style="font-size: 12px; color: #4b5563; margin: 0;">
+                <strong>Idée</strong> : Plafonnement de la CVEC à 40€ et fin du financement des projets militants éloignés de tes préoccupations.
+              </p>
+              <p style="font-size: 11px; color: #6b7280; margin: 6px 0 0 0;">
+                <em>Pourquoi ?</em> Ton argent (la CVEC) doit financer des services qui te servent : santé, accès au sport, culture. Pas des délires politiques ou des projets qui ne concernent pas 99% des étudiants.
+              </p>
+            </div>
           </div>
         </section>
 
         <!-- COMMENT VOTER -->
         <section class="block" aria-labelledby="how-title">
           <div class="block-header">
-            <h2 id="how-title" class="block-title">Comment voter&nbsp;?</h2>
+            <h2 id="how-title" class="block-title">Comment voter ?</h2>
             <span class="block-kicker">4 étapes simples</span>
           </div>
           <div class="divider"></div>
@@ -556,8 +603,8 @@
                 <p class="step-content-title">Récupère ton code de vote</p>
                 <p class="step-content-text">
                   Vérifie ta boîte mail (et tes spams) : tu as reçu un code de la part de
-                  <strong>&laquo; Legavote &raquo;</strong> ou du
-                  <strong>CROUS</strong>.
+                  <strong>« Legavote »</strong> ou du
+                  <strong>CROUS</strong> entre le <strong>16 et le 19 janvier</strong>.
                 </p>
               </div>
             </div>
@@ -600,8 +647,8 @@
               <div>
                 <p class="step-content-title">Valide La Cocarde Étudiante</p>
                 <p class="step-content-text">
-                  Sélectionne et <strong>valide la liste &laquo; La Cocarde &raquo;</strong>
-                  pour envoyer un message clair&nbsp;: une
+                  Sélectionne et <strong>valide la liste « La Cocarde »</strong>
+                  pour envoyer un message clair : une
                   <strong>alternative patriote</strong> au CROUS Bordeaux-Aquitaine.
                 </p>
               </div>
@@ -627,9 +674,9 @@
       <!-- FOOTER -->
       <footer class="footer">
         <div class="footer-line" aria-hidden="true"></div>
-        <p>Élections CROUS Bordeaux-Aquitaine 2026 &mdash; Liste La Cocarde Étudiante</p>
+        <p>Élections CROUS Bordeaux-Aquitaine 2026 — Liste La Cocarde Étudiante</p>
         <p class="footer-small">
-          Page d’information non officielle. Pense à partager ce lien à tes amis pour
+          Page d'information non officielle. Pense à partager ce lien à tes amis pour
           maximiser la participation.
         </p>
       </footer>
