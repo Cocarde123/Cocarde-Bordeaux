@@ -1,244 +1,641 @@
-    <!DOCTYPE html>
+ ```html
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Élections CROUS 2026 - Votez Cocarde</title>
-    <style>
-        :root {
-            --primary-blue: #002395; /* Bleu sombre patriotique */
-            --white: #ffffff;
-            --red: #ED2939; /* Rouge drapeau */
-            --text-dark: #333;
-            --light-gray: #f4f4f4;
-        }
+  <meta charset="UTF-8" />
+  <title>Élections CROUS : L'Alternative Patriote - La Cocarde Étudiante</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Élections CROUS Bordeaux-Aquitaine 2026 : découvrez le programme de La Cocarde Étudiante et votez en ligne du 3 au 5 février 2026."
+  />
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
+  <style>
+    :root {
+      --blue: #002395;
+      --red: #ed2939;
+      --white: #ffffff;
+      --bg: #f5f6fa;
+      --text: #111827;
+      --text-muted: #4b5563;
+      --radius-lg: 18px;
+      --radius-full: 999px;
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.12);
+      --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
 
-        /* Header */
-        header {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 1rem 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        .header-content h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, sans-serif;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 35, 149, 0.05),
+        rgba(237, 41, 57, 0.03)
+      );
+      color: var(--text);
+      line-height: 1.5;
+    }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-blue) 60%, var(--red) 100%);
-            color: var(--white);
-            padding: 4rem 1rem;
-            text-align: center;
-        }
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-        .hero h2 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+    }
 
-        .cta-button {
-            background-color: var(--white);
-            color: var(--primary-blue);
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 50px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: inline-block;
-        }
+    .shell {
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+    }
 
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
-            background-color: var(--light-gray);
-        }
+    /* HERO / HEADER */
+    .hero {
+      background: radial-gradient(circle at top left, #ed2939 0, #002395 60%);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 22px 18px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
 
-        /* Programme Grid */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-        }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.18),
+        rgba(255, 255, 255, 0)
+      );
+      opacity: 0.9;
+      pointer-events: none;
+    }
 
-        .section-title {
-            text-align: center;
-            color: var(--primary-blue);
-            margin-bottom: 2rem;
-            font-size: 2rem;
-            border-bottom: 3px solid var(--red);
-            display: inline-block;
-            padding-bottom: 0.5rem;
-        }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.14);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
 
-        .card {
-            background: var(--white);
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-top: 5px solid var(--primary-blue);
-            transition: transform 0.3s;
-        }
+    .hero-tag-pill {
+      display: flex;
+      overflow: hidden;
+      border-radius: 999px;
+    }
+    .hero-tag-pill span {
+      display: block;
+      width: 8px;
+      height: 8px;
+    }
+    .hero-tag-pill span:nth-child(1) {
+      background: #002395;
+    }
+    .hero-tag-pill span:nth-child(2) {
+      background: #ffffff;
+    }
+    .hero-tag-pill span:nth-child(3) {
+      background: #ed2939;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-        }
+    .hero-title {
+      font-size: 26px;
+      line-height: 1.15;
+      font-weight: 750;
+      margin-bottom: 6px;
+    }
 
-        .card h3 {
-            color: var(--primary-blue);
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-        }
+    .hero-subtitle {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 14px;
+    }
 
-        .card ul {
-            padding-left: 1.2rem;
-        }
+    .hero-dates {
+      font-size: 13px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 11px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.12);
+      margin-bottom: 16px;
+    }
 
-        .card li {
-            margin-bottom: 0.5rem;
-        }
+    .hero-dates span {
+      font-weight: 600;
+    }
 
-        /* Steps to Vote */
-        .steps-section {
-            background-color: var(--light-gray);
-            padding: 3rem 1rem;
-        }
+    .hero-dates small {
+      opacity: 0.9;
+      margin-left: 8px;
+    }
 
-        .step-box {
-            background: var(--white);
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-left: 5px solid var(--red);
-            border-radius: 4px;
-        }
+    .hero-cta-main {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
 
-        /* Footer */
-        footer {
-            background-color: #222;
-            color: #ccc;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 2rem;
-        }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 13px 18px;
+      border-radius: var(--radius-full);
+      background: #fffbfb;
+      color: #b30014;
+      font-weight: 750;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
 
-        footer a {
-            color: var(--white);
-            text-decoration: underline;
-        }
+    .btn-primary span {
+      position: relative;
+      z-index: 1;
+    }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            .hero h2 { font-size: 2rem; }
-            .grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    .btn-primary::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top,
+        rgba(237, 41, 57, 0.2),
+        transparent 60%
+      );
+      opacity: 0;
+      transition: opacity 0.2s ease-out;
+    }
+
+    .btn-primary:active::before,
+    .btn-primary:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .hero-cta-note {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .hero-footnote {
+      margin-top: 8px;
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    /* MAIN SECTIONS */
+    .main {
+      margin-top: 18px;
+      margin-bottom: 24px;
+    }
+
+    .block {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 16px 14px 14px;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 16px;
+    }
+
+    .block-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .block-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .block-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .divider {
+      height: 2px;
+      width: 32px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #002395, #ed2939);
+      margin-bottom: 12px;
+    }
+
+    /* GRID CARDS */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 380px) {
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: #f9fafb;
+      border-radius: 16px;
+      padding: 10px 10px 11px;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .card-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--red);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .card-text {
+      font-size: 12px;
+      color: #374151;
+    }
+
+    /* HOW TO VOTE */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .step {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 9px;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px solid rgba(0, 35, 149, 0.08);
+    }
+
+    .step-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #002395;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-content-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 2px;
+    }
+
+    .step-content-text {
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .step-link {
+      color: #002395;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+
+    /* SECONDARY CTA (inside “Comment Voter ?”) */
+    .inline-cta {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: var(--radius-full);
+      background: #002395;
+      color: #ffffff;
+      font-weight: 650;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: none;
+      box-shadow: 0 8px 24px rgba(0, 35, 149, 0.3);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .btn-secondary:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .inline-cta-note {
+      font-size: 11px;
+      color: #6b7280;
+      text-align: center;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 12px;
+    }
+
+    .footer-line {
+      height: 1px;
+      width: 60%;
+      max-width: 260px;
+      margin: 0 auto 8px;
+      background: linear-gradient(90deg, #002395, #ffffff, #ed2939);
+      opacity: 0.7;
+    }
+
+    .footer-small {
+      font-size: 10px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+  </style>
 </head>
 <body>
+  <div class="page">
+    <main class="shell">
+      <!-- HERO -->
+      <header class="hero" role="banner">
+        <div class="hero-inner">
+          <div class="hero-tag">
+            <span class="hero-tag-pill" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+            <span>La Cocarde Étudiante</span>
+          </div>
 
-    <header>
-        <div class="header-content">
-            <h1>La Cocarde Étudiante</h1>
+          <h1 class="hero-title">Élections CROUS : L'Alternative Patriote</h1>
+          <p class="hero-subtitle">Du 3 au 5 février 2026 &mdash; Votez La Cocarde</p>
+
+          <div class="hero-dates">
+            <span>Vote 100% en ligne</span>
+            <small>3 &mdash; 5 février 2026</small>
+          </div>
+
+          <div class="hero-cta-main">
+            <a
+              href="https://crous-bordeaux.legavote.fr"
+              class="btn-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>JE VOTE MAINTENANT</span>
+            </a>
+            <p class="hero-cta-note">
+              En quelques clics avec ton code reçu par mail.
+            </p>
+          </div>
+
+          <p class="hero-footnote">
+            Défends une alternative patriote au CROUS Bordeaux-Aquitaine en
+            choisissant la liste <strong>La Cocarde Étudiante</strong>.
+          </p>
         </div>
-    </header>
+      </header>
 
-    <section class="hero">
-        <h2>L'ALTERNATIVE PATRIOTE</h2>
-        <p>Élections CROUS • Du 3 au 5 Février 2026</p>
-        <a href="https://crous-bordeaux.legavote.fr" class="cta-button" target="_blank">🗳️ JE VOTE MAINTENANT</a>
-    </section>
+      <section class="main">
+        <!-- POURQUOI VOTER POUR NOUS -->
+        <section class="block" aria-labelledby="why-title">
+          <div class="block-header">
+            <h2 id="why-title" class="block-title">Pourquoi voter pour nous&nbsp;?</h2>
+            <span class="block-kicker">Ton quotidien, nos priorités</span>
+          </div>
+          <div class="divider"></div>
 
-    <div class="container">
-        <div style="text-align: center;">
-            <h2 class="section-title">NOTRE PROGRAMME</h2>
-            <p style="font-style: italic;">"Pour un CROUS patriote et solidaire" [cite: 10]</p>
-        </div>
+          <div class="grid-4">
+            <!-- Carte 1 -->
+            <article class="card">
+              <div class="card-header">
+                <div class="card-dot" aria-hidden="true"></div>
+                <h3 class="card-title">Pouvoir d'achat</h3>
+              </div>
+              <p class="card-tag">Restauration</p>
+              <p class="card-text">
+                Repas à <strong>2€ pour les non-boursiers</strong> (1€ pour les
+                boursiers) et promotion du <strong>localisme</strong> dans les assiettes.
+              </p>
+            </article>
 
-        <div class="grid">
-            <div class="card">
-                <h3>💰 Bourses & CVEC</h3>
-                <ul>
-                    <li><strong>Priorité nationale</strong> dans l'attribution des bourses[cite: 31].</li>
-                    <li><strong>Plafonnement de la CVEC à 40€</strong> pour arrêter de financer les délires militants[cite: 38, 11].</li>
-                    <li>Indexation du montant des bourses sur l'inflation[cite: 33].</li>
-                    <li>Transparence totale sur les projets financés[cite: 39].</li>
-                </ul>
+            <!-- Carte 2 -->
+            <article class="card">
+              <div class="card-header">
+                <div class="card-dot" aria-hidden="true"></div>
+                <h3 class="card-title">Justice sociale</h3>
+              </div>
+              <p class="card-tag">Bourses</p>
+              <p class="card-text">
+                <strong>Priorité nationale</strong> dans l'attribution des bourses et
+                indexation automatique sur l'<strong>inflation</strong>.
+              </p>
+            </article>
+
+            <!-- Carte 3 -->
+            <article class="card">
+              <div class="card-header">
+                <div class="card-dot" aria-hidden="true"></div>
+                <h3 class="card-title">Sécurité &amp; logement</h3>
+              </div>
+              <p class="card-tag">Logement</p>
+              <p class="card-text">
+                <strong>Priorité nationale</strong> pour l'accès aux logements, rénovation
+                des résidences et sécurisation des <strong>zones dangereuses</strong>.
+              </p>
+            </article>
+
+            <!-- Carte 4 -->
+            <article class="card">
+              <div class="card-header">
+                <div class="card-dot" aria-hidden="true"></div>
+                <h3 class="card-title">Stop au gaspillage</h3>
+              </div>
+              <p class="card-tag">CVEC</p>
+              <p class="card-text">
+                <strong>Plafonnement</strong> de la CVEC à 40€ et fin du financement des
+                <strong>délires militants</strong> éloignés des préoccupations étudiantes.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <!-- COMMENT VOTER -->
+        <section class="block" aria-labelledby="how-title">
+          <div class="block-header">
+            <h2 id="how-title" class="block-title">Comment voter&nbsp;?</h2>
+            <span class="block-kicker">4 étapes simples</span>
+          </div>
+          <div class="divider"></div>
+
+          <div class="steps">
+            <!-- Étape 1 -->
+            <div class="step">
+              <div class="step-number">1</div>
+              <div>
+                <p class="step-content-title">Récupère ton code de vote</p>
+                <p class="step-content-text">
+                  Vérifie ta boîte mail (et tes spams) : tu as reçu un code de la part de
+                  <strong>&laquo; Legavote &raquo;</strong> ou du
+                  <strong>CROUS</strong>.
+                </p>
+              </div>
             </div>
 
-            <div class="card">
-                <h3>🍽️ Restauration</h3>
-                <ul>
-                    <li><strong>Repas à 2€</strong> pour les non-boursiers (1€ pour les boursiers)[cite: 24].</li>
-                    <li>Promotion du <strong>localisme</strong> dans les produits vendus[cite: 25].</li>
-                    <li>Lutte contre le gaspillage (récupération des restes)[cite: 26].</li>
-                    <li>Ouverture élargie pour réduire les files d'attente[cite: 28].</li>
-                </ul>
+            <!-- Étape 2 -->
+            <div class="step">
+              <div class="step-number">2</div>
+              <div>
+                <p class="step-content-title">Rends-toi sur la plateforme</p>
+                <p class="step-content-text">
+                  Va sur
+                  <a
+                    href="https://crous-bordeaux.legavote.fr"
+                    class="step-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    crous-bordeaux.legavote.fr
+                  </a>
+                  depuis ton téléphone ou ton ordinateur.
+                </p>
+              </div>
             </div>
 
-            <div class="card">
-                <h3>🏠 Logement & Sécurité</h3>
-                <ul>
-                    <li><strong>Priorité nationale</strong> pour l'attribution des logements[cite: 15].</li>
-                    <li>Sécurisation des résidences en zone dangereuse[cite: 18].</li>
-                    <li>Rénovation (isolation et salubrité)[cite: 17].</li>
-                    <li>Sanctions lourdes pour les dégradations[cite: 20].</li>
-                </ul>
+            <!-- Étape 3 -->
+            <div class="step">
+              <div class="step-number">3</div>
+              <div>
+                <p class="step-content-title">Entre tes informations</p>
+                <p class="step-content-text">
+                  Rentre ton <strong>code de vote</strong> puis ta
+                  <strong>date de naissance</strong> pour t'authentifier.
+                </p>
+              </div>
             </div>
-        </div>
-    </div>
 
-    <section class="steps-section">
-        <div class="container">
-            <h2 class="section-title">COMMENT VOTER ?</h2>
-            <div class="step-box">
-                <strong>1. Munis-toi de ton code</strong><br>
-                Retrouve ton identifiant (ex: H38RLQQ8) reçu par mail de "Legavote" ou "CROUS".
+            <!-- Étape 4 -->
+            <div class="step">
+              <div class="step-number">4</div>
+              <div>
+                <p class="step-content-title">Valide La Cocarde Étudiante</p>
+                <p class="step-content-text">
+                  Sélectionne et <strong>valide la liste &laquo; La Cocarde &raquo;</strong>
+                  pour envoyer un message clair&nbsp;: une
+                  <strong>alternative patriote</strong> au CROUS Bordeaux-Aquitaine.
+                </p>
+              </div>
             </div>
-            <div class="step-box">
-                <strong>2. Connecte-toi</strong><br>
-                Clique sur le bouton "Je vote" ci-dessus pour aller sur <em>crous-bordeaux.legavote.fr</em>.
-            </div>
-            <div class="step-box">
-                <strong>3. Valide ton choix</strong><br>
-                Entre ta date de naissance, connecte-toi avec <em>MesServicesEtudiant</em> et choisis la liste <strong>La Cocarde</strong>.
-            </div>
-        </div>
-    </section>
+          </div>
 
-    <footer>
-        <p>Élections Crous Bordeaux-Aquitaine 2026</p>
-        <p>Plus d'infos ? Scannez le QR Code sur la profession de foi[cite: 43].</p>
-    </footer>
+          <div class="inline-cta">
+            <a
+              href="https://crous-bordeaux.legavote.fr"
+              class="btn-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              JE VAIS SUR LA PLATEFORME DE VOTE
+            </a>
+            <p class="inline-cta-note">
+              Le vote prend moins de 2 minutes, directement depuis ton mobile.
+            </p>
+          </div>
+        </section>
+      </section>
 
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="footer-line" aria-hidden="true"></div>
+        <p>Élections CROUS Bordeaux-Aquitaine 2026 &mdash; Liste La Cocarde Étudiante</p>
+        <p class="footer-small">
+          Page d’information non officielle. Pense à partager ce lien à tes amis pour
+          maximiser la participation.
+        </p>
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
+```
