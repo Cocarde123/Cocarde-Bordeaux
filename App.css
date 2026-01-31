@@ -1,0 +1,177 @@
+/* ========================================
+   LA COCARDE ÉTUDIANTE - Campaign Site
+   ======================================== */
+
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+  --blue-primary: #002395;
+  --blue-dark: #001a70;
+  --red-primary: #ED2939;
+  --red-dark: #c91f2e;
+  --white: #FFFFFF;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-700: #374151;
+}
+
+/* Base Styles */
+.App {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.font-heading {
+  font-family: 'Oswald', sans-serif;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+/* Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.8s ease-out forwards;
+}
+
+/* Slide Up */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+/* Animation Delays */
+.animation-delay-100 { animation-delay: 0.1s; }
+.animation-delay-200 { animation-delay: 0.2s; }
+.animation-delay-300 { animation-delay: 0.3s; }
+.animation-delay-400 { animation-delay: 0.4s; }
+
+/* Gradient Animation */
+@keyframes gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}
+
+/* Scroll Animations */
+.animate-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-card.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays for cards */
+.animate-card.animation-delay-0 { transition-delay: 0s; }
+.animate-card.animation-delay-100 { transition-delay: 0.1s; }
+.animate-card.animation-delay-200 { transition-delay: 0.2s; }
+.animate-card.animation-delay-300 { transition-delay: 0.3s; }
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero-section {
+  background-color: var(--blue-primary);
+}
+
+/* ========================================
+   PROGRAMME CARDS
+   ======================================== */
+
+.programme-card {
+  background: var(--white);
+  border: 2px solid var(--blue-primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 35, 149, 0.1), 0 2px 4px -1px rgba(0, 35, 149, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.programme-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 35, 149, 0.15), 0 10px 10px -5px rgba(0, 35, 149, 0.1);
+  transform: translateY(-4px);
+}
+
+/* ========================================
+   VOTE BUTTON
+   ======================================== */
+
+.vote-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.vote-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero-section h1 { font-size: 2.25rem; }
+  .programme-card { margin-bottom: 1rem; }
+}
+
+/* ========================================
+   SMOOTH SCROLLING
+   ======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--blue-primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue-dark); }
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.drop-shadow-2xl {
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
