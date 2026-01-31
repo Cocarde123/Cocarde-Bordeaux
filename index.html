@@ -2,49 +2,255 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Élections CROUS : L'Alternative Patriote - La Cocarde Étudiante</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Élections CROUS Bordeaux-Aquitaine 2026 : découvrez le programme de La Cocarde Étudiante et votez en ligne du 3 au 5 février 2026."
-  />
+  <title>Élections CROUS - La Cocarde</title>
   <link rel="icon" type="image/webp" href="cocarde.webp" />
 
   <style>
-    :root {
-      --blue: #002395;
-      --red: #ed2939;
-      --white: #ffffff;
-      --bg: #f5f6fa;
-      --text: #111827;
-      --text-muted: #4b5563;
-      --radius-lg: 18px;
-      --radius-full: 999px;
-      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.12);
-      --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.08);
-    }
-
+    /* RESET DE BASE */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    /* CORRECTION 1 : On force le scroll sur le corps de page */
-    html, body {
-      overflow-x: hidden; /* Empêche le site de bouger sur les côtés */
-      overflow-y: auto;   /* Force le scroll vertical */
-      height: auto;
-      min-height: 100%;
+    /* CORRECTION DU PROBLEME DE SCROLL :
+       On laisse le navigateur gérer la hauteur naturellement.
+       Pas de "height: 100%" ni de "overflow: hidden" ici. */
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f5f6fa;
+      color: #111;
+      line-height: 1.5;
+      padding: 15px; /* Un peu d'espace autour */
     }
 
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, sans-serif;
-      background: linear-gradient(
-        180deg,
-        rgba(0, 35, 149, 0.05),
-        rgba(237, 41, 57, 0.03)
-      );
-      color: var(--text);
-      line-height: 1.5;
+    /* CONTENEUR CENTRAL (VERSION MOBILE) */
+    .container {
+      max-width: 500px;
+      margin: 0 auto; /* Centre le contenu */
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden; /* Pour que les coins arrondis marchent */
+    }
+
+    /* HEADER / HERO */
+    header {
+      background: radial-gradient(circle at top left, #ed2939 0, #002395 70%);
+      color: white;
+      padding: 25px 20px;
+      position: relative;
+    }
+
+    /* LOGO COCARDE */
+    .logo-cocarde {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 60px;
+      height: 60px;
+      background-image: url('cocarde.webp');
+      background-size: cover;
+      background-position: center;
+      border-radius: 50%;
+      border: 2px solid white;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+      padding-right: 60px; /* Place pour le logo */
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      opacity: 0.9;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+
+    .date-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .btn-main {
+      display: block;
+      width: 100%;
+      background: white;
+      color: #b30014;
+      text-align: center;
+      padding: 12px;
+      border-radius: 50px;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* CONTENU */
+    .content {
+      padding: 20px;
+    }
+
+    h2 {
+      color: #002395;
+      font-size: 18px;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 15px;
+      margin-top: 20px;
+    }
+    
+    /* Pour la première section, pas de marge en haut */
+    h2:first-of-type { margin-top: 0; }
+
+    .card {
+      background: #f8f9fa;
+      border-left: 5px solid #ed2939;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 5px;
+    }
+
+    .card strong {
+      display: block;
+      color: #002395;
+      margin-bottom: 4px;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .num {
+      background: #002395;
+      color: white;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn-vote {
+      display: block;
+      width: 100%;
+      background: #002395;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #888;
+      padding: 20px;
+      background: #f5f6fa;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <header>
+      <div class="logo-cocarde"></div>
+      <h1>L'ALTERNATIVE PATRIOTE</h1>
+      <p class="subtitle">Élections CROUS • La Cocarde Étudiante</p>
+      
+      <div class="date-badge">Du 3 au 5 février 2026</div>
+      
+      <a href="#programme" class="btn-main">Découvrir le programme</a>
+    </header>
+
+    <div class="content" id="programme">
+      
+      <h2>NOS 4 MESURES PHARES</h2>
+      
+      <div class="card">
+        <strong>🍽️ Repas à 2€</strong>
+        Pour les non-boursiers (1€ boursiers) et produits locaux.
+      </div>
+      
+      <div class="card">
+        <strong>💰 Bourses</strong>
+        Priorité nationale et indexation sur l'inflation.
+      </div>
+      
+      <div class="card">
+        <strong>🏠 Logement & Sécurité</strong>
+        Priorité nationale et rénovation des résidences.
+      </div>
+      
+      <div class="card">
+        <strong>🛑 CVEC à 40€</strong>
+        Stop au financement des délires militants.
+      </div>
+
+      <h2>COMMENT VOTER ?</h2>
+
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <strong>Récupère ton code</strong><br>
+          Mail reçu de "Legavote" ou "Crous".
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <strong>Va sur le site</strong><br>
+          <a href="https://crous-bordeaux.legavote.fr" style="color:#002395">crous-bordeaux.legavote.fr</a>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <strong>Identifie-toi</strong><br>
+          Code de vote + Date de naissance.
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">4</div>
+        <div>
+          <strong>Vote La Cocarde</strong><br>
+          Valide la liste pour changer les choses.
+        </div>
+      </div>
+
+      <a href="https://crous-bordeaux.legavote.fr" target="_blank" class="btn-vote">JE VOTE MAINTENANT</a>
+
+    </div>
+  </div>
+
+  <footer>
+    Élections CROUS Bordeaux-Aquitaine 2026<br>
+    Ce site est un outil militant.
+  </footer>
+
+</body>
+</html>
