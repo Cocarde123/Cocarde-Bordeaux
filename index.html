@@ -1,256 +1,586 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Élections CROUS - La Cocarde</title>
-  <link rel="icon" type="image/webp" href="cocarde.webp" />
+Voici tout le code :
 
-  <style>
-    /* RESET DE BASE */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+## App.js (React)
+```jsx
+import { useEffect, useRef } from "react";
+import "@/App.css";
+import { Home, Utensils, GraduationCap, Ban, ChevronDown, Vote, Mail, LogIn, CheckCircle } from "lucide-react";
 
-    /* CORRECTION DU PROBLEME DE SCROLL :
-       On laisse le navigateur gérer la hauteur naturellement.
-       Pas de "height: 100%" ni de "overflow: hidden" ici. */
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background-color: #f5f6fa;
-      color: #111;
-      line-height: 1.5;
-      padding: 15px; /* Un peu d'espace autour */
-    }
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_crous-patriote/artifacts/tj4s5x5o_OIP%20%281%29.webp";
 
-    /* CONTENEUR CENTRAL (VERSION MOBILE) */
-    .container {
-      max-width: 500px;
-      margin: 0 auto; /* Centre le contenu */
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      overflow: hidden; /* Pour que les coins arrondis marchent */
-    }
+// Programme Data - Images plus pertinentes
+const programmeCards = [
+  {
+    id: "logement",
+    icon: Home,
+    title: "Priorité Nationale",
+    category: "LOGEMENT",
+    image: "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=800&q=80",
+    points: [
+      "Logements attribués en priorité aux étudiants français",
+      "Rénovation thermique et isolation des résidences",
+      "Sécurisation des résidences en zone dangereuse",
+      "Création de salles de travail et de convivialité"
+    ]
+  },
+  {
+    id: "restauration",
+    icon: Utensils,
+    title: "Pouvoir d'Achat",
+    category: "RESTAURATION",
+    image: "https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&q=80",
+    points: [
+      "Repas à 2€ pour les non-boursiers",
+      "Repas à 1€ pour les boursiers",
+      "Produits locaux dans les assiettes",
+      "Lutte contre le gaspillage alimentaire"
+    ]
+  },
+  {
+    id: "bourses",
+    icon: GraduationCap,
+    title: "Justice Sociale",
+    category: "BOURSES",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80",
+    points: [
+      "Priorité nationale dans l'attribution",
+      "Revalorisation du niveau général des bourses",
+      "Indexation sur l'inflation",
+      "Simplification des démarches administratives"
+    ]
+  },
+  {
+    id: "cvec",
+    icon: Ban,
+    title: "Stop au Racket",
+    category: "CVEC",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80",
+    points: [
+      "Plafonnement de la CVEC à 40€",
+      "Fin du financement des projets idéologiques",
+      "Transparence totale sur l'utilisation des fonds",
+      "Développement des installations sportives"
+    ]
+  }
+];
 
-    /* HEADER / HERO */
-    header {
-      background: radial-gradient(circle at top left, #ed2939 0, #002395 70%);
-      color: white;
-      padding: 25px 20px;
-      position: relative;
-    }
+// Voting Steps
+const votingSteps = [
+  {
+    step: 1,
+    icon: Mail,
+    title: "Vérifie tes mails",
+    description: "Recherche \"Legavote\" ou \"Crous\" dans ta boîte mail"
+  },
+  {
+    step: 2,
+    icon: LogIn,
+    title: "Connecte-toi",
+    description: "Accède au site de vote avec tes identifiants"
+  },
+  {
+    step: 3,
+    icon: CheckCircle,
+    title: "Vote La Cocarde",
+    description: "Sélectionne la liste \"La Cocarde Étudiante\""
+  }
+];
 
-    /* LOGO COCARDE */
-    .logo-cocarde {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 60px;
-      height: 60px;
-      background-image: url('cocarde.webp');
-      background-size: cover;
-      background-position: center;
-      border-radius: 50%;
-      border: 2px solid white;
-      z-index: 10;
-    }
-
-    h1 {
-      font-size: 24px;
-      margin-bottom: 5px;
-      padding-right: 60px; /* Place pour le logo */
-      line-height: 1.1;
-    }
-
-    .subtitle {
-      opacity: 0.9;
-      margin-bottom: 15px;
-      font-size: 14px;
-    }
-
-    .date-badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.2);
-      padding: 5px 10px;
-      border-radius: 15px;
-      font-weight: bold;
-      font-size: 13px;
-      margin-bottom: 15px;
-    }
-
-    .btn-main {
-      display: block;
-      width: 100%;
-      background: white;
-      color: #b30014;
-      text-align: center;
-      padding: 12px;
-      border-radius: 50px;
-      font-weight: 800;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-size: 14px;
-      margin-top: 10px;
-    }
-
-    /* CONTENU */
-    .content {
-      padding: 20px;
-    }
-
-    h2 {
-      color: #002395;
-      font-size: 18px;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 10px;
-      margin-bottom: 15px;
-      margin-top: 20px;
-    }
-    
-    /* Pour la première section, pas de marge en haut */
-    h2:first-of-type { margin-top: 0; }
-
-    .card {
-      background: #f8f9fa;
-      border-left: 5px solid #ed2939;
-      padding: 12px;
-      margin-bottom: 12px;
-      border-radius: 5px;
-    }
-
-    .card strong {
-      display: block;
-      color: #002395;
-      margin-bottom: 4px;
-    }
-
-    .step {
-      display: flex;
-      align-items: flex-start;
-      margin-bottom: 15px;
-    }
-
-    .num {
-      background: #002395;
-      color: white;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-right: 10px;
-      flex-shrink: 0;
-    }
-
-    .btn-vote {
-      display: block;
-      width: 100%;
-      background: #002395;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      border-radius: 10px;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 16px;
-      margin-top: 20px;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 11px;
-      color: #888;
-      padding: 20px;
-      background: #f5f6fa;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    
-    <header>
-      <div class="logo-cocarde"></div>
-      <h1>L'ALTERNATIVE PATRIOTE</h1>
-      <p class="subtitle">Élections CROUS • La Cocarde Étudiante</p>
-      
-      <div class="date-badge">Du 3 au 5 février 2026</div>
-      
-      <a href="#programme" class="btn-main">Découvrir le programme</a>
-    </header>
-
-    <div class="content" id="programme">
-      
-      <h2>NOS 4 MESURES PHARES</h2>
-      
-      <div class="card">
-        <strong>🍽️ Repas à 2€</strong>
-        Pour les non-boursiers (1€ boursiers) et produits locaux.
-      </div>
-      
-      <div class="card">
-        <strong>💰 Bourses</strong>
-        Priorité nationale et indexation sur l'inflation.
-      </div>
-      
-      <div class="card">
-        <strong>🏠 Logement & Sécurité</strong>
-        Priorité nationale et rénovation des résidences.
-      </div>
-      
-      <div class="card">
-        <strong>🛑 CVEC à 40€</strong>
-        Stop au financement des délires militants.
+// Hero Section Component
+const HeroSection = () => {
+  return (
+    <section 
+      data-testid="hero-section" 
+      className="hero-section h-screen flex flex-col items-center justify-center relative overflow-hidden"
+    >
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-[#002395]">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#002395] via-[#001a70] to-[#002395] animate-gradient"></div>
+        <div className="absolute top-0 left-0 w-1/3 h-full bg-[#002395] opacity-50"></div>
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-[#ED2939] opacity-10"></div>
       </div>
 
-      <h2>COMMENT VOTER ?</h2>
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center text-center px-4 animate-fadeIn">
+        {/* Logo - Style original */}
+        <div className="mb-8 animate-scaleIn">
+          <img 
+            src={LOGO_URL} 
+            alt="La Cocarde Étudiante" 
+            data-testid="hero-logo"
+            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 object-contain drop-shadow-2xl"
+          />
+        </div>
 
-      <div class="step">
-        <div class="num">1</div>
-        <div>
-          <strong>Récupère ton code</strong><br>
-          Mail reçu de "Legavote" ou "Crous".
+        {/* Title */}
+        <h1 
+          data-testid="hero-title"
+          className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-white uppercase tracking-tight mb-4 animate-slideUp"
+        >
+          L'Alternative Patriote
+        </h1>
+
+        {/* Dates */}
+        <div 
+          data-testid="hero-dates"
+          className="flex items-center gap-2 text-white/90 text-lg md:text-xl mb-4 animate-slideUp animation-delay-200"
+        >
+          <Vote className="w-5 h-5" />
+          <span className="font-semibold">Élections CROUS • Du 3 au 5 Février</span>
+        </div>
+
+        {/* Slogan */}
+        <p 
+          data-testid="hero-slogan"
+          className="text-xl md:text-2xl text-white/80 font-medium max-w-xl animate-slideUp animation-delay-400"
+        >
+          Pour un CROUS qui protège les étudiants
+        </p>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <a 
+          href="#programme" 
+          data-testid="scroll-indicator"
+          className="flex flex-col items-center text-white/70 hover:text-white transition-colors"
+        >
+          <span className="text-sm mb-2 uppercase tracking-wider">Découvrir</span>
+          <ChevronDown className="w-8 h-8" />
+        </a>
+      </div>
+    </section>
+  );
+};
+
+// Programme Card Component
+const ProgrammeCard = ({ card, index }) => {
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const Icon = card.icon;
+
+  return (
+    <div
+      ref={cardRef}
+      data-testid={`programme-card-${card.id}`}
+      className={`programme-card animate-card animation-delay-${index * 100}`}
+    >
+      {/* Category Header - Plus visible */}
+      <div className="bg-[#ED2939] px-6 py-4">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 bg-white flex items-center justify-center">
+            <Icon className="w-6 h-6 text-[#002395]" />
+          </div>
+          <h3 className="font-heading text-2xl md:text-3xl font-bold text-white uppercase tracking-wide">
+            {card.category}
+          </h3>
         </div>
       </div>
 
-      <div class="step">
-        <div class="num">2</div>
-        <div>
-          <strong>Va sur le site</strong><br>
-          <a href="https://crous-bordeaux.legavote.fr" style="color:#002395">crous-bordeaux.legavote.fr</a>
-        </div>
+      {/* Image */}
+      <div className="relative h-36 md:h-44 overflow-hidden">
+        <img 
+          src={card.image} 
+          alt={card.title}
+          className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#002395]/60 to-transparent"></div>
       </div>
 
-      <div class="step">
-        <div class="num">3</div>
-        <div>
-          <strong>Identifie-toi</strong><br>
-          Code de vote + Date de naissance.
-        </div>
+      {/* Content */}
+      <div className="p-5 md:p-6 bg-white">
+        <h4 className="font-heading text-xl md:text-2xl font-bold text-[#002395] uppercase mb-4">
+          {card.title}
+        </h4>
+        <ul className="space-y-2">
+          {card.points.map((point, idx) => (
+            <li key={idx} className="flex items-start gap-2 text-sm md:text-base text-gray-700">
+              <span className="w-2 h-2 bg-[#ED2939] rounded-full mt-2 flex-shrink-0"></span>
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <div class="step">
-        <div class="num">4</div>
-        <div>
-          <strong>Vote La Cocarde</strong><br>
-          Valide la liste pour changer les choses.
-        </div>
-      </div>
-
-      <a href="https://crous-bordeaux.legavote.fr" target="_blank" class="btn-vote">JE VOTE MAINTENANT</a>
-
     </div>
-  </div>
+  );
+};
 
-  <footer>
-    Élections CROUS Bordeaux-Aquitaine 2026<br>
-    Ce site est un outil militant.
-  </footer>
+// Programme Section Component
+const ProgrammeSection = () => {
+  const titleRef = useRef(null);
 
-</body>
-</html>
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (titleRef.current) {
+      observer.observe(titleRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section 
+      id="programme" 
+      data-testid="programme-section"
+      className="min-h-screen bg-gray-50 py-16 md:py-24 px-4 md:px-8"
+    >
+      <div className="max-w-6xl mx-auto">
+        {/* Section Title */}
+        <div ref={titleRef} className="text-center mb-12 md:mb-16 animate-card">
+          <h2 
+            data-testid="programme-title"
+            className="font-heading text-3xl md:text-5xl font-bold text-[#002395] uppercase mb-4"
+          >
+            Notre Programme
+          </h2>
+          <div className="flex items-center justify-center gap-2">
+            <div className="w-16 h-1 bg-[#002395]"></div>
+            <div className="w-4 h-1 bg-[#ED2939]"></div>
+            <div className="w-16 h-1 bg-[#002395]"></div>
+          </div>
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+            Des mesures concrètes pour améliorer le quotidien des étudiants français
+          </p>
+        </div>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          {programmeCards.map((card, index) => (
+            <ProgrammeCard key={card.id} card={card} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Action Section Component
+const ActionSection = () => {
+  const contentRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (contentRef.current) {
+      observer.observe(contentRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section 
+      id="action" 
+      data-testid="action-section"
+      className="min-h-screen bg-[#002395] flex items-center justify-center py-16 px-4"
+    >
+      <div ref={contentRef} className="max-w-4xl mx-auto text-center animate-card">
+        {/* Title */}
+        <h2 
+          data-testid="action-title"
+          className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold text-white uppercase mb-12"
+        >
+          Comment voter ?
+        </h2>
+
+        {/* Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          {votingSteps.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div 
+                key={item.step}
+                data-testid={`voting-step-${item.step}`}
+                className="flex flex-col items-center text-white"
+              >
+                <div className="w-20 h-20 bg-white/10 border-2 border-white/30 flex items-center justify-center mb-4 hover:bg-white/20 transition-colors">
+                  <Icon className="w-10 h-10" />
+                </div>
+                <div className="text-4xl font-heading font-bold text-[#ED2939] mb-2">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-bold uppercase mb-2">{item.title}</h3>
+                <p className="text-white/70 text-sm">{item.description}</p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* CTA Button */}
+        <a
+          href="https://crous-bordeaux.legavote.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid="vote-cta-button"
+          className="vote-button inline-flex items-center gap-3 bg-[#ED2939] text-white font-heading text-lg md:text-xl font-bold uppercase px-8 md:px-12 py-4 md:py-5 hover:bg-[#c91f2e] transition-all duration-300 hover:scale-105 shadow-2xl"
+        >
+          <Vote className="w-6 h-6" />
+          Accéder au site de vote
+        </a>
+
+        {/* Reminder */}
+        <p className="mt-8 text-white/60 text-sm">
+          Du 3 au 5 Février • Chaque vote compte !
+        </p>
+      </div>
+    </section>
+  );
+};
+
+// Footer Component
+const Footer = () => {
+  return (
+    <footer 
+      data-testid="footer"
+      className="bg-[#001a70] text-white py-6 px-4"
+    >
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <img 
+            src={LOGO_URL} 
+            alt="La Cocarde Étudiante" 
+            className="w-10 h-10 object-contain"
+          />
+          <span className="font-heading font-bold uppercase">La Cocarde Étudiante</span>
+        </div>
+        <p className="text-white/60 text-sm text-center">
+          © 2025 La Cocarde Étudiante - Élections CROUS
+        </p>
+      </div>
+    </footer>
+  );
+};
+
+function App() {
+  return (
+    <div className="App">
+      <HeroSection />
+      <ProgrammeSection />
+      <ActionSection />
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
+```
+
+## App.css
+```css
+/* ========================================
+   LA COCARDE ÉTUDIANTE - Campaign Site
+   ======================================== */
+
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+  --blue-primary: #002395;
+  --blue-dark: #001a70;
+  --red-primary: #ED2939;
+  --red-dark: #c91f2e;
+  --white: #FFFFFF;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-700: #374151;
+}
+
+/* Base Styles */
+.App {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.font-heading {
+  font-family: 'Oswald', sans-serif;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+/* Fade In */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+/* Scale In */
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.8s ease-out forwards;
+}
+
+/* Slide Up */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+/* Animation Delays */
+.animation-delay-100 { animation-delay: 0.1s; }
+.animation-delay-200 { animation-delay: 0.2s; }
+.animation-delay-300 { animation-delay: 0.3s; }
+.animation-delay-400 { animation-delay: 0.4s; }
+
+/* Gradient Animation */
+@keyframes gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}
+
+/* Scroll Animations */
+.animate-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-card.animate-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered delays for cards */
+.animate-card.animation-delay-0 { transition-delay: 0s; }
+.animate-card.animation-delay-100 { transition-delay: 0.1s; }
+.animate-card.animation-delay-200 { transition-delay: 0.2s; }
+.animate-card.animation-delay-300 { transition-delay: 0.3s; }
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero-section {
+  background-color: var(--blue-primary);
+}
+
+/* ========================================
+   PROGRAMME CARDS
+   ======================================== */
+
+.programme-card {
+  background: var(--white);
+  border: 2px solid var(--blue-primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 35, 149, 0.1), 0 2px 4px -1px rgba(0, 35, 149, 0.06);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.programme-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 35, 149, 0.15), 0 10px 10px -5px rgba(0, 35, 149, 0.1);
+  transform: translateY(-4px);
+}
+
+/* ========================================
+   VOTE BUTTON
+   ======================================== */
+
+.vote-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.vote-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* ========================================
+   RESPONSIVE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  .hero-section h1 { font-size: 2.25rem; }
+  .programme-card { margin-bottom: 1rem; }
+}
+
+/* ========================================
+   SMOOTH SCROLLING
+   ======================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--blue-primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue-dark); }
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.drop-shadow-2xl {
+  filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+}
+```
