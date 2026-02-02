@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter La Cocarde - Crous Bordeaux</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border-top: 10px solid #002395; /* Bleu */
+        }
+        h1 {
+            color: #002395;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .step {
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+        .number {
+            background-color: #002395;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .text {
+            color: #333;
+            font-size: 16px;
+        }
+        .btn-vote {
+            display: block;
+            background-color: #ED2939; /* Rouge */
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-transform: uppercase;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 0px #b01a26;
+        }
+        .btn-vote:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 #b01a26;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🗳️ COMMENT VOTER ?</h1>
+
+        <div class="step">
+            <div class="number">1</div>
+            <div class="text">
+                <strong>Vérifie tes mails</strong><br>
+                Trouve le mail de "LegaVote" avec ton identifiant.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="number">2</div>
+            <div class="text">
+                <strong>Connecte-toi</strong><br>
+                Clique sur le bouton rouge ci-dessous pour accéder au site.
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="number">3</div>
+            <div class="text">
+                <strong>Vote La Cocarde</strong><br>
+                Choisis la liste "La Cocarde Étudiante" et valide !
+            </div>
+        </div>
+
+        <a href="https://crous-bordeaux.legavote.fr" target="_blank" class="btn-vote">
+            JE VOTE COCARDE
+        </a>
+
+        <div class="footer">
+            Élections CROUS Bordeaux-Aquitaine 2026
+        </div>
+    </div>
+
+</body>
+</html>
